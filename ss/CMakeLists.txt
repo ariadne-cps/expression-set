@@ -1,0 +1,8 @@
+if(NOT TARGET set)
+ ensure_submodule_initialized(set)
+ add_subdirectory(set)
+endif()
+if(NOT TARGET symbolic)
+ ensure_submodule_initialized(symbolic)
+ add_subdirectory(symbolic)
+endif()
