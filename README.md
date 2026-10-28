@@ -19,9 +19,9 @@ The umbrella header is `include/ariadne-expression-set.hpp`.
 
 Expression Set depends directly on:
 
-- [ariadne-cps/symbolic](https://github.com/ariadne-cps/symbolic), included as Git submodule `ss/symbolic`.
+- [ariadne-cps/symbolic](https://github.com/ariadne-cps/symbolic), included as Git submodule `ss/sym`.
 - [ariadne-cps/set](https://github.com/ariadne-cps/set), included as Git submodule `ss/set`.
-- [ariadne-cps/configuration](https://github.com/ariadne-cps/configuration), included as Git submodule `ss/configuration` for shared build configuration.
+- [ariadne-cps/configuration](https://github.com/ariadne-cps/configuration), included as Git submodule `ss/cfg` for shared build configuration.
 
 Symbolic provides named variables, expressions, predicates and spaces. Set provides the computational set representations and their solving dependencies. Function and lower-level Ariadne libraries are supplied transitively. Symbolic does **not** depend on Expression Set or Set.
 
