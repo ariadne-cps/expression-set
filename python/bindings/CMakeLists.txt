@@ -7,7 +7,7 @@ target_include_directories(pyariadne-expression_set-submodule-obj PRIVATE
     "${PYTHON_COMMON_SOURCE_DIR}/include"
     $<TARGET_PROPERTY:pyariadne-set,INTERFACE_INCLUDE_DIRECTORIES>
 )
-target_link_libraries(pyariadne-expression_set-submodule-obj PRIVATE pyariadne-python-common pybind11::module expression-set)
+target_link_libraries(pyariadne-expression_set-submodule-obj PRIVATE pyariadne-python-common pybind11::module expression_set)
 set_target_properties(pyariadne-expression_set-submodule-obj PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 add_library(pyariadne-expression_set INTERFACE)

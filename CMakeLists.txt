@@ -29,18 +29,18 @@ setup_project()
 include_directories(${PROJECT_SOURCE_DIR}/include)
 add_subdirectory(ss)
 
-add_library(expression-set INTERFACE)
-target_include_directories(expression-set INTERFACE
+add_library(expression_set INTERFACE)
+target_include_directories(expression_set INTERFACE
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include/ariadne-expression-set>
 )
-target_link_libraries(expression-set INTERFACE symbolic set)
+target_link_libraries(expression_set INTERFACE symbolic set)
 
 add_subdirectory(src)
-target_link_libraries(EXPRESSION_SET_SRC PRIVATE expression-set)
+target_link_libraries(EXPRESSION_SET_SRC PRIVATE expression_set)
 
 ariadne_register_public_headers(
-    TARGET expression-set
+    TARGET expression_set
     DIRECTORIES "${PROJECT_SOURCE_DIR}/include/expression-set"
     FILES "${PROJECT_SOURCE_DIR}/include/ariadne-expression-set.hpp"
 )
@@ -48,7 +48,7 @@ ariadne_register_public_headers(
 setup_project_library(
     TARGET ariadne-expression-set
     OBJECTS EXPRESSION_SET_SRC
-    LINK_LIBRARIES expression-set
+    LINK_LIBRARIES expression_set
 )
 
 setup_standalone_project_tests(
@@ -66,7 +66,7 @@ endif()
 
 if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
     ariadne_install_dependency_bundle(
-        TARGET expression-set
+        TARGET expression_set
         DESTINATION include/ariadne-expression-set
     )
 endif()
