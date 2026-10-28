@@ -16,6 +16,13 @@ Void export_sets(pybind11::module& module)
     real_variable_lower_interval_class.def("__str__",&__cstr__<RealVariableLowerInterval>);
     real_variable_lower_interval_class.def("__bool__", [](RealVariableLowerInterval const&){ARIADNE_THROW(std::runtime_error,"RealVariableLowerInterval.__bool__(self)","Cannot convert RealVariableLowerInterval to bool");});
 
+    // These conversions belong to the set layer, which owns the interval types.
+    auto continuous_predicate_class = pybind11::reinterpret_borrow<pybind11::class_<ContinuousPredicate>>(module.attr("ContinuousPredicate"));
+    continuous_predicate_class.def(pybind11::init<RealVariableLowerInterval>());
+    continuous_predicate_class.def(pybind11::init<RealVariableUpperInterval>());
+    pybind11::implicitly_convertible<RealVariableLowerInterval,ContinuousPredicate>();
+    pybind11::implicitly_convertible<RealVariableUpperInterval,ContinuousPredicate>();
+
     pybind11::class_<RealVariableUpperInterval> real_variable_upper_interval_class(module,"RealVariableUpperInterval");
     real_variable_upper_interval_class.def(pybind11::init<RealVariable,Real>());
     real_variable_upper_interval_class.def("__str__",&__cstr__<RealVariableUpperInterval>);
