@@ -2,6 +2,8 @@ from pyariadne import *
 
 def test_expression_set():
     x, y = RealVariable("x"), RealVariable("y")
+    # Variable-bound operators are defined in expression-set, not symbolic.
+    assert str((Real(0) <= x) & (x <= Real(1)))
     bounds = RealVariablesBox([RealVariableInterval(x, RealInterval(Real(0), Real(1))), RealVariableInterval(y, RealInterval(Real(-1), Real(1)))])
     assert len(bounds) == 2
     cs = RealExpressionConstraintSet([x + y <= Real(1)])
