@@ -22,11 +22,22 @@ if(EXISTS "${PROJECT_SOURCE_DIR}/.git")
             "configuration"
             "set|configuration"
             "symbolic|function|configuration"
+            "testing|configuration"
+            "set|testing|configuration"
+            "symbolic|testing|configuration"
     )
     require_same_dependency_commit(Function
         CHAINS
             "symbolic|function"
             "set|constraint-solving|nonlinear-programming|function"
+    )
+    require_same_dependency_commit(Testing
+        CHAINS
+            "testing"
+            "set|testing"
+            "symbolic|testing"
+            "symbolic|function|testing"
+            "set|constraint-solving|testing"
     )
 endif()
 

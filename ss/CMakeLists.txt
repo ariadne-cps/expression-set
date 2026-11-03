@@ -4,3 +4,5 @@ endif()
 if(NOT TARGET symbolic)
  ariadne_add_submodule(symbolic)
 endif()
+
+ariadne_setup_testing()
