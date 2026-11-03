@@ -205,12 +205,10 @@ int main(int argc, char** argv)
     Logger::instance().redirect_to_file("/dev/null");
 #endif
     ARIADNE_TESTING_SUITE("test_expression_set");
-    auto cases = Ariadne::Testing::fixture_variant<TestExpressionSet>(
-        ariadne_test_suite, "TestExpressionSet");
-    ARIADNE_TESTING_ADD_VARIANT_TEST(cases, test_variables_point);
-    ARIADNE_TESTING_ADD_VARIANT_TEST(cases, test_template_streaming);
-    ARIADNE_TESTING_ADD_VARIANT_TEST(cases, test_variables_box);
-    ARIADNE_TESTING_ADD_VARIANT_TEST(cases, test_real_expression_constraint_set);
-    ARIADNE_TESTING_ADD_VARIANT_TEST(cases, test_real_expression_bounded_constraint_set);
+    ARIADNE_TESTING_ADD_TEST(TestExpressionSet, test_variables_point);
+    ARIADNE_TESTING_ADD_TEST(TestExpressionSet, test_template_streaming);
+    ARIADNE_TESTING_ADD_TEST(TestExpressionSet, test_variables_box);
+    ARIADNE_TESTING_ADD_TEST(TestExpressionSet, test_real_expression_constraint_set);
+    ARIADNE_TESTING_ADD_TEST(TestExpressionSet, test_real_expression_bounded_constraint_set);
     return ARIADNE_TESTING_RUN_TESTS_WITH_ARGS(argc, argv);
 }
