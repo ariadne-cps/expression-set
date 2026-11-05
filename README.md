@@ -8,6 +8,7 @@
 [![codecov](https://codecov.io/gh/ariadne-cps/expression-set/branch/main/graph/badge.svg)](https://codecov.io/gh/ariadne-cps/expression-set)
 
 Ariadne Expression Set is the standalone C++20 layer for sets defined by symbolic real-variable bounds and predicates. It provides named-variable intervals, symbolic boxes, expression-defined constraint sets, and conversions to Euclidean and validated set representations.
+Although independently maintained and usable, this repository is also part of the [Ariadne repository structure](https://github.com/ariadne-cps/ariadne/blob/main/doc/structure.md).
 
 ## Layout
 
@@ -21,7 +22,7 @@ Expression Set depends directly on:
 
 - [ariadne-cps/symbolic](https://github.com/ariadne-cps/symbolic), included as Git submodule `ss/sym`.
 - [ariadne-cps/set](https://github.com/ariadne-cps/set), included as Git submodule `ss/set`.
-- [ariadne-cps/configuration](https://github.com/ariadne-cps/configuration), included as Git submodule `ss/cfg` for shared build configuration.
+- [ariadne-cps/build](https://github.com/ariadne-cps/build), included as Git submodule `ss/cfg` for shared build configuration.
 
 Symbolic provides named variables, expressions, predicates and spaces. Set provides the computational set representations and their solving dependencies. Function and lower-level Ariadne libraries are supplied transitively. Symbolic does **not** depend on Expression Set or Set.
 
