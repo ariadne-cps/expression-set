@@ -18,4 +18,4 @@ target_include_directories(pyariadne-expression_set INTERFACE
 )
 target_link_libraries(pyariadne-expression_set INTERFACE pyariadne-set pyariadne-symbolic)
 
-ariadne_add_python_module(NAME expression_set MODULE_SOURCE expression_set_module.cpp)
+ariadne_add_python_module(NAME expression_set MODULE_IMPORT_NAME pyariadne_expressionset MODULE_SOURCE expression_set_module.cpp)

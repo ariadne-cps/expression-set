@@ -1,4 +1,4 @@
-from pyariadne import *
+from pyariadne_expressionset import *
 
 x, y = RealVariable("x"), RealVariable("y")
 box = RealVariablesBox([RealVariableInterval(x, RealInterval(Real(0), Real(1))), RealVariableInterval(y, RealInterval(Real(-1), Real(1)))])

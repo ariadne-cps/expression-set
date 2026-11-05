@@ -46,7 +46,7 @@ cmake --install build-release --prefix /path/to/install
 
 ## Python bindings
 
-With Python 3.11 or newer and a compatible development environment, the standalone build produces the `pyariadne` extension by combining Expression Set bindings with the transitive Set and Symbolic bindings and their lower-level dependencies.
+With Python 3.11 or newer and a compatible development environment, the standalone build produces the `pyariadne_expressionset` extension by combining Expression Set bindings with the transitive Set and Symbolic bindings and their lower-level dependencies.
 
 The extension installs under the chosen prefix (`lib/pythonX.Y/site-packages` on Unix, `Lib/site-packages` on Windows), not into a global Python installation.
 
@@ -60,7 +60,3 @@ The extension installs under the chosen prefix (`lib/pythonX.Y/site-packages` on
 If you would like to contribute to Ariadne Expression Set, please contact the developer:
 
 - Luca Geretti <luca.geretti@univr.it>
-
-## License
-
-Ariadne Expression Set is released under the GNU General Public License v3.0 (or later where individual source files specify it).

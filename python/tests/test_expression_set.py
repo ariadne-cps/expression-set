@@ -1,4 +1,4 @@
-from pyariadne import *
+from pyariadne_expressionset import *
 
 def test_expression_set():
     x, y = RealVariable("x"), RealVariable("y")
