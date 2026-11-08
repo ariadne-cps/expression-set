@@ -23,7 +23,7 @@ if(EXISTS "${PROJECT_SOURCE_DIR}/.git")
     # Pinned child commits guarantee their internal consistency.
     # Preserve explicit comparisons across independent dependency branches.
     require_same_dependency_commit(Build CHAINS
-        "build" "set|build" "symbolic|build" "testing|build")
+        "build" "set|build" "symbolic|build")
     require_same_dependency_commit(Function CHAINS
         "symbolic|function"
         "set|constraint-solving|nonlinear-programming|function")
@@ -55,7 +55,7 @@ setup_project_library(
     LINK_LIBRARIES expression_set
 )
 
-setup_standalone_project_tests(
+setup_standalone_project(
     TARGET ariadne-expression-set
     TEST_DIRECTORY tests
     TEST_TARGET tests
