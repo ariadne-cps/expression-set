@@ -32,6 +32,7 @@
 #include "function/formula.hpp"
 #include "function/function.hpp"
 #include "function/function_model.hpp"
+#include "function/projection.hpp"
 #include "function/taylor_function.hpp"
 #include "symbolic/expression.hpp"
 #include "symbolic/space.hpp"

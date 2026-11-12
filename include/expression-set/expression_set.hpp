@@ -33,7 +33,6 @@
 
 #include "algebra/declarations.hpp"
 #include "function/declarations.hpp"
-#include "function/projection.hpp"
 #include "geometry/box.hpp"
 #include "geometry/declarations.hpp"
 #include "numeric/declarations.hpp"
