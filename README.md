@@ -50,11 +50,6 @@ With Python 3.11 or newer and a compatible development environment, the standalo
 
 The extension installs under the chosen prefix (`lib/pythonX.Y/site-packages` on Unix, `Lib/site-packages` on Windows), not into a global Python installation.
 
-## Tutorials
-
-- C++ examples: `tests/test_expression_set.cpp`.
-- Python: `python/tutorials/tutorial_expression_set.py`.
-
 ## Contribution guidelines
 
 If you would like to contribute to Ariadne Expression Set, please contact the developer:
