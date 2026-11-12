@@ -1,29 +1,29 @@
 /***************************************************************************
- *            symbolic/function_expression.hpp
+ *            expression-set/function_expression.hpp
  *
  *  Copyright  2008-20  Pieter Collins
  *
  ****************************************************************************/
 
 /*
- *  This file is part of Ariadne.
+ *  This file is part of Ariadne Expression Set.
  *
- *  Ariadne is free software: you can redistribute it and/or modify
+ *  Ariadne Expression Set is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  Ariadne is distributed in the hope that it will be useful,
+ *  Ariadne Expression Set is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with Ariadne.  If not, see <https://www.gnu.org/licenses/>.
+ *  along with Ariadne Expression Set. If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*! \file symbolic/function_expression.hpp
- *  \brief Expressions created as wrappers around functions
+/** @file expression-set/function_expression.hpp
+ *  @brief Function expressions and composition under coordinate projections.
  */
 
 #ifndef ARIADNE_FUNCTION_EXPRESSION_HPP
@@ -40,6 +40,7 @@
 
 namespace Ariadne {
 
+/** @brief Declare a symbolic wrapper around a function of a given signature. */
 template<class P, class SIG> class FunctionExpression;
 /*
 template<class P, class D> using ScalarFunctionExpression = FunctionExpression<P,D,IntervalDomainType>;
@@ -57,6 +58,7 @@ template<class P> using VectorMultivariateFunctionExpression = FunctionExpressio
 using VariableIntervalDomainType = VariableInterval<IntervalDomainType::UpperBoundType>;
 using VariablesBoxDomainType = VariablesBox<IntervalDomainType>;
 
+/** @brief Pull a box domain back through a coordinate projection. */
 inline BoxDomainType preimage(Projection const& prj, BoxDomainType const& bx) {
     BoxDomainType dbx(prj.argument_size(),IntervalDomainType(-infty,+infty));
     for(SizeType i=0; i!=prj.result_size(); ++i) {
@@ -64,16 +66,19 @@ inline BoxDomainType preimage(Projection const& prj, BoxDomainType const& bx) {
     return dbx;
 }
 
+/** @brief Construct a named variable interval from a function domain. */
 VariableIntervalDomainType _make_domain(RealVariable const& arg, IntervalDomainType const& dom) {
     return VariableIntervalDomainType(arg,dom);
 }
 
+/** @brief Convert a function box into named variable bounds. */
 VariablesBoxDomainType _make_domain(Vector<RealVariable> const& args, BoxDomainType const& dom) {
     Map<RealVariable,FloatDPExactInterval> domain;
     for(SizeType i=0; i!=args.size(); ++i) { domain[args[i]]=dom[i]; }
     return domain;
 }
 
+/** @brief Represent a function expression with explicitly named arguments. */
 template<class P,class RES> class FunctionExpression<P,RES(RealVariable)> {
     using ARG=RealVariable;
     using SIG=RES(ARG);
@@ -94,6 +99,7 @@ template<class P,class RES> class FunctionExpression<P,RES(RealVariable)> {
     template<class PP> friend OutputStream& operator<<(OutputStream& os, FunctionExpression<PP,SIG> const& sfe);
 };
 
+/** @brief Write a function expression and its named arguments. */
 template<class P> OutputStream& operator<<(OutputStream& os, ScalarMultivariateFunctionExpression<P> const& e) {
     os << e._f;
     for(SizeType i=0; i!=e._vars.size(); ++i) {
@@ -101,10 +107,12 @@ template<class P> OutputStream& operator<<(OutputStream& os, ScalarMultivariateF
     } return os << "]";
 }
 
+/** @brief Bind real variables to the input coordinates of a scalar function. */
 template<class P> ScalarMultivariateFunctionExpression<P> evaluate(ScalarMultivariateFunction<P> const& f, Vector<RealVariable> const& vars) {
     return ScalarMultivariateFunctionExpression<P>(f,vars);
 }
 
+/** @brief Compose a Taylor model with a coordinate projection. */
 template<class F> TaylorModel<ValidatedTag,F> compose(const TaylorModel<ValidatedTag,F>& x, Projection const& prj) {
     TaylorModel<ValidatedTag,F> r(prj.argument_size(),x.sweeper());
     r.expansion().reserve(x.number_of_nonzeros());
@@ -121,6 +129,7 @@ template<class F> TaylorModel<ValidatedTag,F> compose(const TaylorModel<Validate
     return r;
 }
 
+/** @brief Compose a scaled function patch with a coordinate projection. */
 template<class M> ScaledFunctionPatch<M> compose(ScaledFunctionPatch<M> const& f, Projection const& prj) {
     auto f_dom=f.domain();
     BoxDomainType dom=preimage(prj,f_dom);
@@ -137,6 +146,7 @@ template<class M> ScaledFunctionPatch<M> compose(ScaledFunctionPatch<M> const& f
     }
 }
 
+/** @brief Compose a scalar function model with a coordinate projection. */
 template<class P, class PR, class PRE> ScalarFunctionModel<P,PR,PRE> compose(ScalarFunctionModel<P,PR,PRE> const& f, Projection const& prj) {
     auto fpp = std::dynamic_pointer_cast<const ValidatedScalarMultivariateTaylorFunctionModelDP>(f.managed_pointer());
     if(fpp) {
@@ -178,6 +188,7 @@ RealScalarMultivariateFunction compose(RealScalarMultivariateFunction const& f, 
 }
 
 
+/** @brief Rebuild a scalar multivariate function in the specified variable order. */
 template<class P> ScalarMultivariateFunction<P> make_function(RealSpace args, ScalarMultivariateFunctionExpression<P> const& expr) {
     ARIADNE_PRECONDITION(subset(expr.arguments(),args.variables()));
     auto expr_vars=expr.variables();

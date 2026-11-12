@@ -6,24 +6,24 @@
  ****************************************************************************/
 
 /*
- *  This file is part of Ariadne.
+ *  This file is part of Ariadne Expression Set.
  *
- *  Ariadne is free software: you can redistribute it and/or modify
+ *  Ariadne Expression Set is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  Ariadne is distributed in the hope that it will be useful,
+ *  Ariadne Expression Set is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with Ariadne.  If not, see <https://www.gnu.org/licenses/>.
+ *  along with Ariadne Expression Set. If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*! \file expression-set/expression_set.hpp
- *  \brief Sets defined using expressions over real variables.
+/** @file expression-set/expression_set.hpp
+ *  @brief Constraint sets, variable intervals, points and boxes defined using symbolic expressions.
  */
 
 #ifndef ARIADNE_EXPRESSION_SET_HPP
@@ -72,23 +72,35 @@ typedef VariablesBox<ExactIntervalType> ExactVariablesBoxType;
 class RealExpressionConstraintSet;
 class RealExpressionBoundedConstraintSet;
 
+/** @brief Collect identifiers referenced by a collection of variable bounds. */
 Set<Identifier> variables(const Map<RealVariable,RealInterval>& bnds);
+/** @brief Collect identifiers referenced by a collection of variable bounds. */
 Set<Identifier> variables(const List<RealVariableInterval>& bnds);
+/** @brief Collect the variables referenced by the predicates. */
 Set<Identifier> arguments(const List<ContinuousPredicate>& c);
 
+/** @brief Enclose the given real interval with exact bounds. */
 ExactIntervalType over_approximation(RealInterval ivl);
+/** @brief Construct an exact interval contained in the given interval. */
 ExactIntervalType under_approximation(RealInterval ivl);
+/** @brief Approximate an interval using exact bounds. */
 ExactIntervalType approximation(RealInterval ivl);
+/** @brief Enclose the variable box with exact interval bounds. */
 ExactVariablesBoxType over_approximation(const RealVariablesBox& ebx);
+/** @brief Approximate variable bounds with exact intervals. */
 ExactVariablesBoxType approximation(const RealVariablesBox& ebx);
+/** @brief Construct an exact inner approximation of the variable box. */
 ExactVariablesBoxType under_approximation(const RealVariablesBox& ebx);
 
+/** @brief Construct a validated Euclidean representation of an expression-defined constraint set. */
 ValidatedConstrainedImageSet approximate_euclidean_set(const RealExpressionBoundedConstraintSet& set, const RealSpace& space);
 
+/** @brief Combine predicate results by disjunction, short-circuiting when definitely true. */
 template<class C, class P> decltype(auto) any(C const& c, P const& p) {
     typedef decltype(p(*c.begin())) R;
     R r=false; for(auto e:c) { r=r or p(e); if(definitely(r)) { return r; } } return r;
 }
+/** @brief Combine predicate results by conjunction, short-circuiting when definitely false. */
 template<class C, class P> decltype(auto) all(C const& c, P const& p) {
     typedef decltype(p(*c.begin())) R;
     R r=true; for(auto e:c) { r=r and p(e); if(definitely(not r)) { return r; } } return r;
@@ -139,6 +151,7 @@ template<class UB> class VariableLowerInterval
         return os << elivl._lower << "<=" << elivl._variable; }
 };
 
+/** @brief Represent an upper bound on a named real variable. */
 template<class UB> class VariableUpperInterval
     : public DeclareExpressionOperations<Kleenean>
 {
@@ -299,10 +312,15 @@ class RealExpressionBoundedConstraintSet
 
 
 
+/** @brief Construct a real box in the chosen variable order. */
 RealBox make_box(RealSpace const&, RealVariablesBox const&);
+/** @brief Convert a variable box to a real box in the chosen variable order. */
 RealBox make_set(RealSpace const&, RealVariablesBox const&);
+/** @brief Construct a constraint set in the specified variable space. */
 ConstraintSet make_set(RealSpace const&, RealExpressionConstraintSet const&);
+/** @brief Construct a bounded constraint set in the specified variable space. */
 BoundedConstraintSet make_set(RealSpace const&, RealExpressionBoundedConstraintSet const&);
+/** @brief Construct a bounded constraint set in the specified variable space. */
 BoundedConstraintSet make_set(RealSpace const&, RealVariablesBox const&, RealExpressionConstraintSet const&);
 
 
