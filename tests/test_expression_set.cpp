@@ -32,7 +32,7 @@
 #include "algebra/algebra.hpp"
 #include "function/formula.hpp"
 #include "function/function.hpp"
-#include "logging/logging.hpp"
+#include "logging/test_runner.hpp"
 #include "numeric/numeric.hpp"
 #include "set/function_set.hpp"
 #include "symbolic/assignment.hpp"
@@ -217,17 +217,11 @@ class TestExpressionSet : public Ariadne::Testing::ContextFixture {
 };
 
 int main(int argc, char** argv) {
-    // Keep solver logging available without bypassing the test reporter.
-#ifdef _WIN32
-    Logger::instance().redirect_to_file("NUL");
-#else
-    Logger::instance().redirect_to_file("/dev/null");
-#endif
     ARIADNE_TESTING_SUITE("test_expression_set");
     ARIADNE_TESTING_ADD_TEST(TestExpressionSet, test_variables_point);
     ARIADNE_TESTING_ADD_TEST(TestExpressionSet, test_template_streaming);
     ARIADNE_TESTING_ADD_TEST(TestExpressionSet, test_variables_box);
     ARIADNE_TESTING_ADD_TEST(TestExpressionSet, test_real_expression_constraint_set);
     ARIADNE_TESTING_ADD_TEST(TestExpressionSet, test_real_expression_bounded_constraint_set);
-    return ARIADNE_TESTING_RUN_TESTS_WITH_ARGS(argc, argv);
+    return Ariadne::Testing::run_logging_suite(ariadne_test_suite, argc, argv);
 }
